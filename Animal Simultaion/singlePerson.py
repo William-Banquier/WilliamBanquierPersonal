@@ -11,8 +11,15 @@ import names #Cool random name finder, all the names are from census data from 1
 import re #Regex (Be scared)
 
 class Person():
-    def __init__(self, name = None, gender = None, firstName = names.get_first_name() + ".", lastName = names.get_last_name(), age = None, id = None, setStats = False, stats = {}, statMultiplyer = 1, family = {}):
-        if  "." in firstName and gender != None:
+    def __init__(self, name = None, gender = None, firstName = None, lastName = names.get_last_name(), age = None, id = None, stats = {}, statMultiplyer = 1, family = {}, statValues = None):
+        if gender == None:
+            if random() < 0.5:
+                gender = 'male'
+                firstName = names.get_first_name(gender=gender)
+            else:
+                gender = 'female'
+                firstName = names.get_first_name(gender=gender)
+        if  firstName == None and gender != None:
             gender.lower()
             try:
                 firstName = names.get_first_name(gender=gender)
@@ -36,12 +43,16 @@ class Person():
             else:
                 self.fullName = firstName + " " + lastName
         self.age = age
-
+        self.gender = gender #Gender was never defined, which creates errors with x.gender is required
         self.id = id
-        if setStats == False:
+        if statValues == None:
             statDict = dict.fromkeys(stats)
             for key in statDict:
                 statDict[key] = round((random()-0.5) * 10  * statMultiplyer, 2)
+            
+        else:
+            statDict = dict(zip(stats, statValues))
+
         if stats != {}:
             statDict["statSum"] = round(sum(statDict.values()), 2)
 
@@ -111,28 +122,7 @@ def findCritical(person):
         position = dValues.index(bottom)
         return(dKeys[position], " d")
 
-def summary(person):
-    try:
-        critical = findCritical(person)
-        if critical[1] == 'u':
-            traitString = ("Their finest trait is their "+ critical[0].lower()+". ")
-        else:
-            traitString = ("Their worst trait is their "+ critical[0].lower()+", they have absolutly none of it! ") #For negitives
-    except:
-        traitString = ""
-    try:
-        nameString = "This is "+person.fullName+". "
-    except:
-        nameString=""
-        # print("Error @ nameString")
-    try:
-        ageString = "They are "+str(person.age)+" years old. "
-    except:
-        ageString=""
-        # print("Error @ ageString")
-        
-    print(str(nameString)+str(ageString)+str(traitString))
-
+#Summary Removed as it was useless, and had problems I did not want to fix.
 
 if __name__ == "__main__":
     #This program will create and follow a single person. It will be modular so it can be redesturbuted in a import function
@@ -143,13 +133,13 @@ if __name__ == "__main__":
 
     person = (Person(
         age=25,
+        firstName='William',
+        lastName='Banquier',
         id=0,
         stats=["Chasity", "Absitince", "Liberality", "Diligence", "Patience", "Kindness", "Humility"], #Seven virtues, you can also use 'Strenth', 'Wisdom', and any thing else.
+        statValues=[99,99,99,99,99,99,99], #Input Custom Stats
         gender="male", #has to be lowercase, and either male or female
         # lastName=False
     ))
     tablePrint(person, ["firstName", "lastName","id","family"])
-
-    summary(person)
-
 
