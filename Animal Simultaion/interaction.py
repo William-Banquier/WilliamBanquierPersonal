@@ -12,8 +12,10 @@ def createRelation (characterOne, characterTwo):
                 opinion = 0
         if characterOne.location == characterTwo.location:
             characterOne.relations [characterTwo.id] = trunc(clip( clip(opinion, -20, 20) + characterTwo.reputation, -100, 100))
+            return trunc(clip( clip(opinion, -20, 20) + characterTwo.reputation, -100, 100))
         else:
             characterOne.relations [characterTwo.id] = trunc(clip( clip(opinion, -20, 20) + characterTwo.reputation, -100, 100)) // 2
+            return trunc(clip( clip(opinion, -20, 20) + characterTwo.reputation, -100, 100)) // 2
 def saveRelations(object):
     object.relations = dict(list({k: v for k, v in sorted(object.relations.items(), key=lambda item: item[1])}.items())[:5] + list({k: v for k, v in sorted(object.relations.items(), key=lambda item: item[1])}.items())[-5:])   
 def findBuyableLand(person, land) -> list:
@@ -47,8 +49,6 @@ def buyingOrder(people, land) -> list:
             except:
                 break
             counter += 1
-
-
 def characterInfoPrint(object) -> None:
     string = ""
 
@@ -174,25 +174,26 @@ x = (sorted(people, key=lambda x: x.reputation, reverse=True))
 # characterInfoPrint(x)
 # landInfoPrint(land[x.land[0]])
 
-v3 = 0
-v2 = 0
-v1 = 0
-v0 = 0
-for i in range(50):
-    try:
-        if (land[x[i].land[0]].type) == 3:
-            v3 +=1
-        elif (land[x[i].land[0]].type) == 2:
-            v2 +=1
-        elif (land[x[i].land[0]].type) == 1:
-            v1 +=1
-        else:
-            v0 +=1
-    except:
-        pass
+#Counter of types of land
+# v3 = 0
+# v2 = 0
+# v1 = 0
+# v0 = 0
+# for i in range(50):
+#     try:
+#         if (land[x[i].land[0]].type) == 3:
+#             v3 +=1
+#         elif (land[x[i].land[0]].type) == 2:
+#             v2 +=1
+#         elif (land[x[i].land[0]].type) == 1:
+#             v1 +=1
+#         else:
+#             v0 +=1
+#     except:
+#         pass
 
 
-
+print(x[0].relations)
 
 '''
 Land ownership
@@ -200,10 +201,3 @@ Owener ship is detuermend on the value of the land, and the reputaion of the own
 
 Price = land value - reputation | If location is diffenrt from person location price is multiplied by 3 for purchese
 '''
-
-from termcolor import cprint
-cprint("Attention!", 'red', attrs=['bold'])
-cprint(v3, "yellow")
-cprint(v2, "blue")
-cprint(v1, "grey", "on_white")
-cprint(v0, "red")

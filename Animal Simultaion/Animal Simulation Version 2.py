@@ -1,6 +1,3 @@
-#Asexual Animal Simulation 
-
-
 '''
 
 Animals have a hunger stat, a fertility stat, and a dynasty stat.
@@ -84,18 +81,18 @@ animals.sort(key = lambda items: -items.score)
 animals = animals[:len(animals)-(len(animals)//2)]
 
 
-turns = 200000
+turns = 10000
 for i in range(turns):
     addNew(animals)
     # print(animals[0].score)
 
-    print("%"+str(100*(i/turns)),"finished")
+    # print("%"+str(100*(i/turns)),"finished")
     # print(len(animals))
     if len(animals) > 50:
         animals = animals[0:50]
 
 
-
+from rich import print
 
 # for i in range (0,len (animals)):
 #     print(animals[i].score)

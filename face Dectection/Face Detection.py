@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 import os
-#import time
+import time
 
 index = 0
 arr = []
@@ -25,7 +25,7 @@ c = 0
 
 while(True):
     ret, img = cap.read()
-    #time.sleep(1)
+    time.sleep(1)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = detector.detectMultiScale(gray, 1.3, 5)
     eyes = detectorEyes.detectMultiScale(gray, 1.3, 5)
