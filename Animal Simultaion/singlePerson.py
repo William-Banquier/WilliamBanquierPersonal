@@ -11,7 +11,7 @@ import names #Cool random name finder, all the names are from census data from 1
 import re #Regex (Be scared)
 
 class Person():
-    def __init__(self, name = None, gender = None, firstName = None, lastName = names.get_last_name(), age = None, id = None, stats = {}, statMultiplyer = 1, family = {}, statValues = None):
+    def __init__(self, name = None, gender = None, firstName = None, lastName = names.get_last_name(), age = 0, id = None, stats = {}, statMultiplyer = 1, family = {}, statValues = None):
         if gender == None:
             if random() < 0.5:
                 gender = 'male'

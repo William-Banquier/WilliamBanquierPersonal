@@ -6,8 +6,10 @@ import singlePerson
 
 people = []
 peopleCount = 100
+currentID = 0
 for i in range(peopleCount):
-    people.append(singlePerson.Person(id = i,
+    currentID = i
+    people.append(singlePerson.Person(id = currentID,
                                     age = int(singlePerson.random()*100),
                                     stats=["Chasity", "Absitince", "Liberality", "Diligence", "Patience", "Kindness", "Humility"],))
 
@@ -53,14 +55,66 @@ def createChild(mother, father, cID, genderConfirm = False, mutations = False, m
                                 statValues=cStats,
                                 family={"mother":mother.id, 'father':father.id},
                                 id = cID)
-    mother.family["Child"+str(cID)] = cID
-    father.family["Child"+str(cID)] = cID
     return child
 
-    
-    
+
+def createGeneration(people, startingID = 0, endingID = None, countID = None, amountOfNewPeople = None):
+    if amountOfNewPeople == None:
+        amountOfNewPeople = int (len (people) / 2)
+    people.sort(key=lambda x: x.id, reverse=False)
+    if endingID == None:
+        people = people[startingID::]
+    else:
+        people = people[startingID:endingID]
+    if countID == None:
+        countID = people[-1].id + 1
+
+    kids = []
+    for i in range(amountOfNewPeople):
+        kids.append(createChild(mother = people[i],
+                                father = people[int(len(people) / 2) + i], cID = countID))
+        try:
+            people[i].age+=1
+        except:
+            people[i].age = 0
+        try:
+            people[int (len (people) / 2) +i].age += 1
+        except:
+            people[int (len (people) / 2) +i].age = 0
+        countID+=1
+    return kids
+
+def findPerson(people, id):
+    for i in range(len(people)):
+        if people[i].id == id:
+            return people[i]
+
+def removeGeneration(people, cutOff = 3):
+    peopleCount = len(people)
+    people.sort(key=lambda x: x.age, reverse=True)
+    singlePerson.tablePrint(people[0], [])
+    for i in range(peopleCount):
+        if people[i].age < 3:
+            return
+        people.pop(0)
 
 
-singlePerson.tablePrint(createChild(mother = people[0], father = people[1], cID = 200),[])
-singlePerson.tablePrint(people[0], [])
+# people .append (createChild(mother = people[i], father = people[int(peopleCount/2)+i], cID = currentID))
 
+
+# singlePerson.tablePrint(people[-1],[])
+# print(currentID)
+people += (createGeneration(people))
+removeGeneration(people)
+people += (createGeneration(people))
+removeGeneration(people)
+people += (createGeneration(people))
+removeGeneration(people)
+people += (createGeneration(people))
+removeGeneration(people)
+people += (createGeneration(people))
+
+print(people[0].age)
+
+# singlePerson.tablePrint(people[200], [])
+# singlePerson.tablePrint(findPerson(people, 125), [])

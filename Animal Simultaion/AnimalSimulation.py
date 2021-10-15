@@ -2,9 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-points = 20
+points = 200
 
-reproduceValue = 1.2
+reproduceValue = 2.2
 
 
 
@@ -13,7 +13,7 @@ y = [x+1 for x in range(points)]
 x = []
 
 
-n = 0.5
+n = 2
 
 
 # print(reproduceValue * x * (1- x))
@@ -43,7 +43,7 @@ ax.scatter([0,1],[0,1] ,facecolor = "white", s = 1)
 
 #3.6321
 #4.06 is the first number to kill off the population in less than 20 iterations
-ax.plot(createAnimal(4.06, 0.4, points), linestyle='-', marker='o', color = "black")
+ax.plot(createAnimal(3.6, 0.5, points), linestyle='-', marker='o', color = "black")
 # ax.plot(createAnimal(2.8, 0.1, points), linestyle='-', marker='o', color = "lightgreen")
 
 plt.show()
