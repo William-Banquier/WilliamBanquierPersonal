@@ -3,10 +3,10 @@ from os import system
 from time import sleep
 from rich import print
 
-stock = "NVCN.TO"
+stock = "GME"
 sleepTime = 120
-startingValue = 1.500
-shareCount = 300
+startingValue = 1
+shareCount = 600
 
 def moneyGained(startingValue, value):
     return value - startingValue

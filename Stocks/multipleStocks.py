@@ -3,7 +3,6 @@ from os import system
 from time import sleep
 from rich import print
 
-# stock = "NVCN.TO"
 stock = "NOK"
 sleepTime = 120
 startingValue = 1.500
@@ -32,7 +31,7 @@ class Stocks():
             print("INIT COMPLETE")
 
 stocks = [
-    Stocks("NVCN.TO", 1.570, 600, 120),
+    Stocks("GME", 1, 600, 120),
 ]
 
 from rich.table import Table
